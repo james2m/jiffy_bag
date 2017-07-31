@@ -8,3 +8,6 @@
 /spec/reports/
 /tmp/
 jiffy_bag-*.gem
+.ruby-version
+.ruby-gemset
+.rvmrc
