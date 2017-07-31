@@ -1,6 +1,6 @@
 # JiffyBag
 
-A tiny litte gem to take a single level hash of parameters, put them into an anonymous Struct, serialize, zip and Base64 encode it for sing to another service where it can be restored on the other .
+A tiny gem to take an object, serialize, zip and Base64 encode it for sending to another system where it can be re-constructed.
 
 ## Installation
 
@@ -21,38 +21,42 @@ Or install it yourself as:
 ## Usage
 Either include or extend JiffyBag in your class depending on whether you want Instance or Class methods. The you get 6 simple methods;
 
-  build_payload(**attributes)
-    Takes a hash and turns it into an anonymous Struct.
+  JiffyBag.serialize(payload)
+    Takes an object and serializes it to YAML.
 
-  serialize_payload(payload)
-    Takes a hash, turns it into an anonymous Struct and serializes it to YAML.
+  JiffyBag.deflate(payload)
+    Takes an object, serializes it to YAML and Zips it up.
 
-  deflate_payload(payload)
-    Takes a hash, turns it into an anonymous Struct, serializes it to YAML and Zips it up.
+  JiffyBag.encode(payload)
+    Takes an object, serializes it to YAML, Zips it up and encodes it in Base64 for safe sending through the ether.
 
-  encode_payload(payload)
-    Takes a hash, turns it into an anonymous Struct, serializes it to YAML, Zips it up and encodes it in Base64 for safe sending through the ether.
+  JiffyBag.deserialize(payload)
+    Exactly the inverse of serialize_payload, takes the YAML and de-serializes it back into an instance of the original class if that class exists.
 
-  deserialize_payload(payload)
-    Exactly the inverse of serialize_payload, takes the YAML and de-serializes it back into an anonymous Struct.
+  JiffyBag.inflate(payload)
+    Exactly the inverse of deflate_payload, unzips the payload and de-serializes the YAML back into an instance of the original serialized class.
 
-  inflate_payload(payload)
-    Exactly the inverse of deflate_payload, unzips the payload and de-serializes the  YAML back into an anonymous Struct.
+  JiffyBag.decode(payload)
+    Exactly the inverse of encode_payload, decodes the Base64 payload, unzips it and de-serializes the YAML back into an instance of the original class.
 
-  decode_payload(payload)
-    Exactly the inverse of encode_payload, decodes the Base64 payload, unzips it and de-serializes the YAML back into an anonymous Struct.
+  JiffyBag.decode_as_struct(payload)
+    Decodes the Base64 payload, unzips it and de-serializes the YAML and if it contains a Hash it instantiates an anonymous Struct from it. This is
 
   for the most part the you really only need encode_payload
 
-      payload = encode_payload(my: 'cheeky', payload: 'in a nice safe package')
+      payload = JiffyBag.encode(my: 'cheeky', payload: 'in a nice little package')
 
       => "eJzT1dVVUCwqTarULy4pKk0u4cqttFJIzkhNza7kKkiszMlPTLFSyMxTSFTI\ny0xOVShOTEtVKEhMzk5MT+UCAF+4FDw=\n"
 
   Do whatever you got to to get it to the other end and decode it thus;
 
-      struct = decode_payload(payload)
+      hash = JiffyBag.decode(payload)
 
-      => #<struct my="cheeky", payload="in a nice safe package">
+      => {my: 'cheeky', payload: 'in a nice little package'}
+
+      struct = JiffyBag.decode_as_struct(payload)
+
+      => #<struct my="cheeky", payload="in a nice littke package">
 
 ## Development
 
