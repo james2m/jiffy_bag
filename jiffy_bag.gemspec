@@ -9,18 +9,10 @@ Gem::Specification.new do |spec|
   spec.authors       = ["James McCarthy"]
   spec.email         = ["james2mccarthy@gmail.com"]
 
-  spec.summary       = %q{Package up structs into neat little packages for sending between services.}
-  spec.description   = %q{Takes a hash and zips it up into a portable struct to send between services.}
+  spec.summary       = %q{Package up Ruby objects into neat little packages for sending between services.}
+  spec.description   = %q{Takes an object zips it up into a serialized, zipped, Base64 encoded string to send between services.}
   spec.homepage      = 'http://github.com/james2m/jiffy_bag'
   spec.license       = 'MIT'
-
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  # if spec.respond_to?(:metadata)
-  #   spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
-  # else
-  #   raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
-  # end
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"

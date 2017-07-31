@@ -19,7 +19,7 @@ Or install it yourself as:
     $ gem install jiffy_bag
 
 ## Usage
-Either include or extend JiffyBag in your class depending on whether you want Instance or Class methods. The you get 6 simple methods;
+Either include or extend JiffyBag in your class depending on whether you want Instance or Class methods. The you get 7 simple methods;
 
   JiffyBag.serialize(payload)
     Takes an object and serializes it to YAML.
@@ -42,7 +42,7 @@ Either include or extend JiffyBag in your class depending on whether you want In
   JiffyBag.decode_as_struct(payload)
     Decodes the Base64 payload, unzips it and de-serializes the YAML and if it contains a Hash it instantiates an anonymous Struct from it. This is
 
-  for the most part the you really only need encode_payload
+  for the most part the you really only need JiffyBag.encode
 
       payload = JiffyBag.encode(my: 'cheeky', payload: 'in a nice little package')
 
